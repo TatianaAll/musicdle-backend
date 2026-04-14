@@ -1,7 +1,7 @@
 const http = require('http');
 const app = require('./app');
 
-// Ajout du port normalisé
+// Add normalize port
 const normalizePort = val => {
   const port = parseInt(val, 10);
   if (isNaN(port)) return val;
@@ -11,7 +11,7 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
-// Gestion des erreurs
+// Manage errors
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -41,4 +41,4 @@ server.on('listening', () => {
 });
 
 server.listen(port);
-// Lancement du server avec nodemon
+// Launch server w/ nodemon

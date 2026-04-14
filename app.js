@@ -8,17 +8,17 @@ const app = express();
 // precise that we use express so JSON used for requests
 app.use(express.json());
 
-// Ajout du CORS pour autoriser les requêtes entre origines différentes
+// Adding CORS to allows requests from differents origins
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // tout le monde peut y accéder
+  res.setHeader("Access-Control-Allow-Origin", "*"); // access to everybody
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  ); // Autorisation de certains en-têtes
+  ); // Allow headers
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  ); // autorisation des méthodes HTTP
+  ); // allow HTTP methods
   next();
 });
 
