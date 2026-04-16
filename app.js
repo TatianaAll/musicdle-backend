@@ -1,5 +1,6 @@
 // import the express package
 import express from "express";
+import prisma from "./prismaClient.js";
 
 // create app with express.js
 const app = express();
@@ -19,6 +20,43 @@ app.use((req, res, next) => {
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   ); // allow HTTP methods
   next();
+});
+
+app.post("/users", async (req, res) => {
+  const { email, password, username } = req.body || {};
+
+  if (!email || !password) {
+    return res.status(400).json({
+      message: "email and password are required",
+    });
+  }
+
+  try {
+    const createdUser = await prisma.users.create({
+      data: {
+        email,
+        password,
+        username,
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      },
+    });
+
+    return res.status(201).json(createdUser);
+  } catch (error) {
+    if (error?.code === "P2002") {
+      return res.status(409).json({
+        message: "email already exists",
+      });
+    }
+
+    return res.status(500).json({
+      message: "database error",
+    });
+  }
 });
 
 export default app;
