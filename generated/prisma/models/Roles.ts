@@ -28,10 +28,12 @@ export type AggregateRoles = {
 
 export type RolesAvgAggregateOutputType = {
   id: number | null
+  authorId: number | null
 }
 
 export type RolesSumAggregateOutputType = {
   id: number | null
+  authorId: number | null
 }
 
 export type RolesMinAggregateOutputType = {
@@ -39,6 +41,7 @@ export type RolesMinAggregateOutputType = {
   title: string | null
   content: string | null
   published: boolean | null
+  authorId: number | null
 }
 
 export type RolesMaxAggregateOutputType = {
@@ -46,6 +49,7 @@ export type RolesMaxAggregateOutputType = {
   title: string | null
   content: string | null
   published: boolean | null
+  authorId: number | null
 }
 
 export type RolesCountAggregateOutputType = {
@@ -53,16 +57,19 @@ export type RolesCountAggregateOutputType = {
   title: number
   content: number
   published: number
+  authorId: number
   _all: number
 }
 
 
 export type RolesAvgAggregateInputType = {
   id?: true
+  authorId?: true
 }
 
 export type RolesSumAggregateInputType = {
   id?: true
+  authorId?: true
 }
 
 export type RolesMinAggregateInputType = {
@@ -70,6 +77,7 @@ export type RolesMinAggregateInputType = {
   title?: true
   content?: true
   published?: true
+  authorId?: true
 }
 
 export type RolesMaxAggregateInputType = {
@@ -77,6 +85,7 @@ export type RolesMaxAggregateInputType = {
   title?: true
   content?: true
   published?: true
+  authorId?: true
 }
 
 export type RolesCountAggregateInputType = {
@@ -84,6 +93,7 @@ export type RolesCountAggregateInputType = {
   title?: true
   content?: true
   published?: true
+  authorId?: true
   _all?: true
 }
 
@@ -178,6 +188,7 @@ export type RolesGroupByOutputType = {
   title: string
   content: string | null
   published: boolean
+  authorId: number
   _count: RolesCountAggregateOutputType | null
   _avg: RolesAvgAggregateOutputType | null
   _sum: RolesSumAggregateOutputType | null
@@ -208,6 +219,7 @@ export type RolesWhereInput = {
   title?: Prisma.StringFilter<"Roles"> | string
   content?: Prisma.StringNullableFilter<"Roles"> | string | null
   published?: Prisma.BoolFilter<"Roles"> | boolean
+  authorId?: Prisma.IntFilter<"Roles"> | number
 }
 
 export type RolesOrderByWithRelationInput = {
@@ -215,6 +227,7 @@ export type RolesOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   published?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
 }
 
 export type RolesWhereUniqueInput = Prisma.AtLeast<{
@@ -225,6 +238,7 @@ export type RolesWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Roles"> | string
   content?: Prisma.StringNullableFilter<"Roles"> | string | null
   published?: Prisma.BoolFilter<"Roles"> | boolean
+  authorId?: Prisma.IntFilter<"Roles"> | number
 }, "id">
 
 export type RolesOrderByWithAggregationInput = {
@@ -232,6 +246,7 @@ export type RolesOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   published?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
   _count?: Prisma.RolesCountOrderByAggregateInput
   _avg?: Prisma.RolesAvgOrderByAggregateInput
   _max?: Prisma.RolesMaxOrderByAggregateInput
@@ -247,12 +262,14 @@ export type RolesScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Roles"> | string
   content?: Prisma.StringNullableWithAggregatesFilter<"Roles"> | string | null
   published?: Prisma.BoolWithAggregatesFilter<"Roles"> | boolean
+  authorId?: Prisma.IntWithAggregatesFilter<"Roles"> | number
 }
 
 export type RolesCreateInput = {
   title: string
   content?: string | null
   published?: boolean
+  authorId: number
 }
 
 export type RolesUncheckedCreateInput = {
@@ -260,12 +277,14 @@ export type RolesUncheckedCreateInput = {
   title: string
   content?: string | null
   published?: boolean
+  authorId: number
 }
 
 export type RolesUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type RolesUncheckedUpdateInput = {
@@ -273,6 +292,7 @@ export type RolesUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type RolesCreateManyInput = {
@@ -280,12 +300,14 @@ export type RolesCreateManyInput = {
   title: string
   content?: string | null
   published?: boolean
+  authorId: number
 }
 
 export type RolesUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type RolesUncheckedUpdateManyInput = {
@@ -293,6 +315,7 @@ export type RolesUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type RolesCountOrderByAggregateInput = {
@@ -300,10 +323,12 @@ export type RolesCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
 }
 
 export type RolesAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
 }
 
 export type RolesMaxOrderByAggregateInput = {
@@ -311,6 +336,7 @@ export type RolesMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
 }
 
 export type RolesMinOrderByAggregateInput = {
@@ -318,10 +344,12 @@ export type RolesMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   published?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
 }
 
 export type RolesSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  authorId?: Prisma.SortOrder
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -335,6 +363,7 @@ export type RolesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   title?: boolean
   content?: boolean
   published?: boolean
+  authorId?: boolean
 }, ExtArgs["result"]["roles"]>
 
 export type RolesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -342,6 +371,7 @@ export type RolesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   title?: boolean
   content?: boolean
   published?: boolean
+  authorId?: boolean
 }, ExtArgs["result"]["roles"]>
 
 export type RolesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -349,6 +379,7 @@ export type RolesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   title?: boolean
   content?: boolean
   published?: boolean
+  authorId?: boolean
 }, ExtArgs["result"]["roles"]>
 
 export type RolesSelectScalar = {
@@ -356,9 +387,10 @@ export type RolesSelectScalar = {
   title?: boolean
   content?: boolean
   published?: boolean
+  authorId?: boolean
 }
 
-export type RolesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "published", ExtArgs["result"]["roles"]>
+export type RolesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "published" | "authorId", ExtArgs["result"]["roles"]>
 
 export type $RolesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Roles"
@@ -368,6 +400,7 @@ export type $RolesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     title: string
     content: string | null
     published: boolean
+    authorId: number
   }, ExtArgs["result"]["roles"]>
   composites: {}
 }
@@ -795,6 +828,7 @@ export interface RolesFieldRefs {
   readonly title: Prisma.FieldRef<"Roles", 'String'>
   readonly content: Prisma.FieldRef<"Roles", 'String'>
   readonly published: Prisma.FieldRef<"Roles", 'Boolean'>
+  readonly authorId: Prisma.FieldRef<"Roles", 'Int'>
 }
     
 

@@ -26,7 +26,7 @@ La table `users` est créée automatiquement au démarrage si elle n'existe pas.
 
 ### `POST /users`
 
-Crée un utilisateur en mémoire pour le MVP.
+Crée un utilisateur dans PostgreSQL via Prisma.
 
 #### Body JSON
 

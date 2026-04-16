@@ -1,27 +1,9 @@
 // import the express package
 import express from "express";
+import prisma from "./prismaClient.js";
 
 // create app with express.js
 const app = express();
-
-let uri = process.env.DATABASE_URL;
-if (typeof uri === "string" && uri.startsWith('"') && uri.endsWith('"')) {
-  uri = uri.slice(1, -1);
-}
-
-if (!uri) {
-  console.error("DATABASE_URL is not set. Check backend/.env");
-} else {
-  const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-  mongoose
-    .connect(uri, clientOptions)
-    .then(() => console.log("Connexion à MongoDB réussie !"))
-    .catch((err) => console.error("Erreur connexion MongoDB :", err));
-
-  mongoose.connection.on("error", (err) => {
-    console.error("Mongoose connection error:", err);
-  });
-}
 
 // precise that we use express so JSON used for requests
 app.use(express.json());
@@ -38,6 +20,43 @@ app.use((req, res, next) => {
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   ); // allow HTTP methods
   next();
+});
+
+app.post("/users", async (req, res) => {
+  const { email, password, username } = req.body || {};
+
+  if (!email || !password) {
+    return res.status(400).json({
+      message: "email and password are required",
+    });
+  }
+
+  try {
+    const createdUser = await prisma.users.create({
+      data: {
+        email,
+        password,
+        username,
+      },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      },
+    });
+
+    return res.status(201).json(createdUser);
+  } catch (error) {
+    if (error?.code === "P2002") {
+      return res.status(409).json({
+        message: "email already exists",
+      });
+    }
+
+    return res.status(500).json({
+      message: "database error",
+    });
+  }
 });
 
 export default app;
