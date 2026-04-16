@@ -2,7 +2,6 @@
 // import the express package
 import express from "express";
 
-
 // create app with express.js
 const app = express();
 
