@@ -1,5 +1,6 @@
-const http = require('http');
-const app = require('./app');
+import http from 'http';
+import app from "./app.js";
+import dotenv from "dotenv";
 
 // Add normalize port
 const normalizePort = val => {

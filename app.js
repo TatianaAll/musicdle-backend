@@ -1,6 +1,7 @@
 
 // import the express package
-const express = require("express");
+import express from "express";
+
 
 // create app with express.js
 const app = express();
@@ -22,4 +23,4 @@ app.use((req, res, next) => {
   next();
 });
 
-module.exports = app;
+export default app;
