@@ -41,16 +41,4 @@ server.on('listening', () => {
   console.log(`Listening on ${bind}`);
 });
 
-const startServer = async () => {
-  try {
-    validateDatabaseConfig();
-    await initDatabase();
-    server.listen(port);
-  } catch (error) {
-    console.error('Failed to initialize PostgreSQL', error);
-    process.exit(1);
-  }
-};
-
-startServer();
-// Launch server w/ nodemon
+server.listen(port);
