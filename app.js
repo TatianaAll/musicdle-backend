@@ -6,7 +6,10 @@ import prisma from "./prismaClient.js";
 const app = express();
 
 // precise that we use express so JSON used for requests
+app.use(cors({ origin: "http://localhost:8081/" }));
 app.use(express.json());
+
+
 
 // Adding CORS to allows requests from differents origins
 app.use((req, res, next) => {
