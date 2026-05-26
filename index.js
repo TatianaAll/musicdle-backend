@@ -16,6 +16,6 @@ app.use(express.json());
 app.use('/api/search', rateLimiter, searchRouter);
 //app.use('/api/game', gameRouter);
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`Server running on port ${process.env.PORT || 3001}`);
+app.listen(process.env.PORT || 3005, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
