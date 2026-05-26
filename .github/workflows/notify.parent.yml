@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger musicdle-docker update
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PARENT_REPO_TOKEN }}
           repository: eliott-colin/musicdle-docker
