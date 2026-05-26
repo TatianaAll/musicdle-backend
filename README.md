@@ -76,3 +76,70 @@ server/
     └── rateLimiter.js    # évite les abus sur ton compte Spotify
 
 
+<<<<<<< Updated upstream
+=======
+```bash
+node server.js
+```
+
+## Configuration PostgreSQL
+
+Avant de démarrer, configure les variables d'environnement suivantes :
+
+- `PGHOST`
+- `PGPORT`
+- `PGDATABASE`
+- `PGUSER`
+- `PGPASSWORD`
+
+La table `users` est gérée par Prisma migrations.
+
+## Routes
+
+### `POST /users`
+
+Crée un utilisateur dans PostgreSQL via Prisma.
+
+#### Body JSON
+
+```json
+{
+  "name": "John Doe",
+  "username": "jdoe",
+  "email": "john@example.com",
+  "password": "secret123"
+}
+```
+
+#### Réponse `201`
+
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "username": "jdoe",
+  "email": "john@example.com"
+}
+```
+
+#### Réponse `409`
+
+```json
+{
+  "message": "email already exists"
+}
+```
+
+#### Réponse `400`
+
+```json
+{
+  "message": "name, email and password are required"
+}
+```
+
+## Notes
+
+- Les utilisateurs sont stockés dans PostgreSQL via Prisma.
+- Les mots de passe sont hashés avant insertion.
+>>>>>>> Stashed changes
