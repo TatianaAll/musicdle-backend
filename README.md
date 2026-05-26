@@ -52,6 +52,8 @@
 @@@@@@@@%%%%@@@@@@@@@@@@@@@@@@@@@@@#*++**%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*=-    
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%@@@@@@@*     
 </pre>
+
+<pre>
 server/
 ├── index.js
 ├── routes/
@@ -61,3 +63,4 @@ server/
 │   └── spotify.js        # getToken() + toutes les fonctions fetch
 └── middlewares/
     └── rateLimiter.js    # évite les abus sur ton compte Spotify
+</pre>
