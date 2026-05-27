@@ -15,10 +15,10 @@ const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
 app.use(express.json());
 
-app.use('/api/auth', authRouter);
-app.use('/api/search', rateLimiter, searchRouter);
-//app.use('/api/game', gameRouter);
-//app.use('/api/game', authMiddleware, gameRouter);
+app.use('musicdle/api/auth', authRouter);
+app.use('musicdle/api/search', rateLimiter, searchRouter);
+//app.use('musicdle/api/game', gameRouter);
+//app.use('musicdle/api/game', authMiddleware, gameRouter);
 
 app.listen(process.env.PORT || 3005, () => {
   console.log(`Server running on port ${process.env.PORT}`);
