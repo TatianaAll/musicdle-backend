@@ -7,7 +7,7 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 // Register
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
   const { email, username, password } = req.body;
   try {
     const existing = await prisma.users.findUnique({ where: { email } });
