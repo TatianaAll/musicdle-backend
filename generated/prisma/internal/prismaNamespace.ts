@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.7.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -384,8 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Users: 'Users',
-  Roles: 'Roles'
+
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,159 +400,10 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "users" | "roles"
+    modelProps: never
     txIsolationLevel: TransactionIsolationLevel
   }
-  model: {
-    Users: {
-      payload: Prisma.$UsersPayload<ExtArgs>
-      fields: Prisma.UsersFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.UsersFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.UsersFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>
-        }
-        findFirst: {
-          args: Prisma.UsersFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.UsersFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>
-        }
-        findMany: {
-          args: Prisma.UsersFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>[]
-        }
-        create: {
-          args: Prisma.UsersCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>
-        }
-        createMany: {
-          args: Prisma.UsersCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.UsersCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>[]
-        }
-        delete: {
-          args: Prisma.UsersDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>
-        }
-        update: {
-          args: Prisma.UsersUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>
-        }
-        deleteMany: {
-          args: Prisma.UsersDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.UsersUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.UsersUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>[]
-        }
-        upsert: {
-          args: Prisma.UsersUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UsersPayload>
-        }
-        aggregate: {
-          args: Prisma.UsersAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateUsers>
-        }
-        groupBy: {
-          args: Prisma.UsersGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UsersGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.UsersCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UsersCountAggregateOutputType> | number
-        }
-      }
-    }
-    Roles: {
-      payload: Prisma.$RolesPayload<ExtArgs>
-      fields: Prisma.RolesFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RolesFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RolesFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>
-        }
-        findFirst: {
-          args: Prisma.RolesFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RolesFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>
-        }
-        findMany: {
-          args: Prisma.RolesFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>[]
-        }
-        create: {
-          args: Prisma.RolesCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>
-        }
-        createMany: {
-          args: Prisma.RolesCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RolesCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>[]
-        }
-        delete: {
-          args: Prisma.RolesDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>
-        }
-        update: {
-          args: Prisma.RolesUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>
-        }
-        deleteMany: {
-          args: Prisma.RolesDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RolesUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RolesUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>[]
-        }
-        upsert: {
-          args: Prisma.RolesUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RolesPayload>
-        }
-        aggregate: {
-          args: Prisma.RolesAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRoles>
-        }
-        groupBy: {
-          args: Prisma.RolesGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RolesGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RolesCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RolesCountAggregateOutputType> | number
-        }
-      }
-    }
-  }
+  model: {}
 } & {
   other: {
     payload: any
@@ -592,104 +442,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const UsersScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  username: 'username',
-  password: 'password'
-} as const
 
-export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
-
-
-export const RolesScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
-} as const
-
-export type RolesScalarFieldEnum = (typeof RolesScalarFieldEnum)[keyof typeof RolesScalarFieldEnum]
-
-
-export const SortOrder = {
-  asc: 'asc',
-  desc: 'desc'
-} as const
-
-export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-} as const
-
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-
-/**
- * Field references
- */
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'String'
- */
-export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
-
-
-/**
- * Reference to a field of type 'String[]'
- */
-export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
 
 /**
  * Batch Payload for updateMany & deleteMany & createMany
@@ -784,11 +537,23 @@ export type PrismaClientOptions = ({
    * ```
    */
   comments?: runtime.SqlCommenterPlugin[]
+  /**
+   * Optional maximum size for the query plan cache. If not provided, a default size will be used.
+   * A value of `0` can be used to disable the cache entirely. A higher cache size can improve
+   * performance for applications that execute a large number of unique queries, while a smaller
+   * cache size can reduce memory usage.
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   queryPlanCacheMaxSize: 100,
+   * })
+   * ```
+   */
+  queryPlanCacheMaxSize?: number
 }
-export type GlobalOmitConfig = {
-  users?: Prisma.UsersOmit
-  roles?: Prisma.RolesOmit
-}
+export type GlobalOmitConfig = {}
 
 /* Types for Logging */
 export type LogLevel = 'info' | 'query' | 'warn' | 'error'

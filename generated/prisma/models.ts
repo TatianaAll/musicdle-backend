@@ -8,6 +8,4 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Users.ts'
-export type * from './models/Roles.ts'
 export type * from './commonInputTypes.ts'
