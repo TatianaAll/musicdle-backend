@@ -57,11 +57,11 @@
 server/
 ├── index.js
 ├── routes/
-│   ├── search.js
-│   └── game.js
+│   ├── auth.js
+│   └── search.js
 ├── services/
-│   └── spotify.js        # getToken() + toutes les fonctions fetch
+│   └── spotify.js       
 └── middlewares/
-    └── rateLimiter.js    # évite les abus sur ton compte Spotify
+    └── rateLimiter.js    
 </pre>
 ...
