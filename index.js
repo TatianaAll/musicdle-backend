@@ -3,11 +3,10 @@
 import express from 'express';
 import cors from 'cors';
 import searchRouter from './routes/search.js';
-//import gameRouter from './routes/game.js';
 import { rateLimiter } from './middlewares/express-rate-limit.js';
 import dotenv from 'dotenv';
 import authRouter from './routes/auth.js';
-//import { authMiddleware } from './middlewares/auth.js';
+import gameRoutes from "./routes/game.js";
 dotenv.config();
 
 
@@ -17,8 +16,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/search', rateLimiter, searchRouter);
-//app.use('/api/game', gameRouter);
-//app.use('/api/game', authMiddleware, gameRouter);
+app.use("/api/games", gameRoutes);
 
 app.listen(process.env.PORT || 3005, () => {
   console.log(`Server running on port ${process.env.PORT}`);

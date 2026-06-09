@@ -1,26 +1,41 @@
 import { Router } from "express";
 import { searchTracks } from "../services/spotify.js";
+import { setTrack } from "../services/cache/trackCache.js";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { q } = req.query;
-  if (!q || q.length < 2) return res.json([]);
+  const q = String(req.query.q || "").trim();
+  if (q.length < 2) return res.json([]);
 
-  const data = await searchTracks(q);
-  const tracks = data.tracks.items.map((track) => ({
-    id: track.id,
-    track: track.name,
-    artist: track.artists.map((a) => a.name).join(", "),
-    album: track.album.name,
-    year: track.album.release_date.slice(0, 4),
-    duration: Math.floor(track.duration_ms / 1000),
-    popularity: track.popularity,
-    cover: track.album.images[2]?.url,
-    preview_url: track.preview_url,
-  }));
+  try {
+    const spotifyData = await searchTracks(q);
+    const items = spotifyData?.tracks?.items ?? [];
 
-  res.json(tracks);
+    const tracks = items.map((track) => {
+      const formatted = {
+        id: track.id,
+        track: track.name,
+        artist: track.artists.map((a) => a.name).join(", "),
+        album: track.album.name,
+        year: track.album.release_date.slice(0, 4),
+        duration: Math.floor(track.duration_ms / 1000),
+        popularity: track.popularity,
+        cover: track.album.images[2]?.url,
+        preview_url: track.preview_url,
+      };
+
+      // Cache the track data for submit
+      setTrack(formatted.id, formatted);
+
+      return formatted;
+    });
+
+    return res.json(tracks);
+  } catch (error) {
+    console.error("Search route failed:", error);
+    return res.status(500).json({ error: "Search unavailable" });
+  }
 });
 
 export default router;

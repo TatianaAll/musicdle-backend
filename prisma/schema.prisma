@@ -7,9 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
+model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
   username String
   password String
+
+  @@map("users")
+}
+
+model Song {
+  id        Int    @id @default(autoincrement())
+  idSpotify String @unique
+  track     String
+  artist   String
+  album     String
+  year      String
+  duration  Int
+  cover     String
+
+  @@map("songs")
 }
