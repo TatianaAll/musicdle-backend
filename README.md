@@ -54,14 +54,33 @@
 </pre>
 
 <pre>
-server/
+project root/
+├── Dockerfile
 ├── index.js
+├── package.json
+├── prismaClient.js
+├── README.md
+├── generated/
+│   └── prisma/
+│       ├── browser.ts
+│       ├── client.ts
+│       ├── commonInputTypes.ts
+│       ├── enums.ts
+│       ├── models.ts
+│       └── internal/
+│           ├── class.ts
+│           ├── prismaNamespace.ts
+│           └── prismaNamespaceBrowser.ts
+├── middlewares/
+│   ├── auth.js
+│   └── express-rate-limit.js
+├── prisma/
+│   └── schema.prisma
 ├── routes/
 │   ├── auth.js
 │   └── search.js
-├── services/
-│   └── spotify.js       
-└── middlewares/
-    └── rateLimiter.js    
+└── services/
+    └── spotify.js
 </pre>
+
 ...
