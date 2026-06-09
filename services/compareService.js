@@ -20,8 +20,8 @@ export function compare(guess, target) {
       status:
         yearDiff === 0 ? "correct"
         : Math.abs(yearDiff) <= 5 ? "close"
-        : yearDiff > 0 ? "higher"
-        : "lower",
+        : yearDiff > 0 ? "lower"
+        : "higher",
     },
     duration: {
       diff: durationDiff,
