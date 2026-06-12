@@ -1,6 +1,8 @@
 import { getTrack } from "../services/cache/trackCache.js";
 import { getDailyTarget } from "../repositories/gameRepository.js";
 import { compare } from "../services/compareService.js";
+import { getRandomTrack } from "../services/spotify.js";
+
 //modif ca pour archi mutli games
 export async function postGuess(req, res) {
   const { guessId } = req.body;
@@ -15,4 +17,11 @@ export async function postGuess(req, res) {
 
   const result = compare(guess, target);
   res.json(result);
+}
+
+export async function testRandom(req, res) {
+  const resultRandom = await getRandomTrack();
+
+  console.log(resultRandom);
+  res.json(resultRandom);
 }
