@@ -1,7 +1,7 @@
 import { getTrack } from "../services/cache/trackCache.js";
 import { getDailyTarget } from "../repositories/gameRepository.js";
 import { compare } from "../services/compareService.js";
-import { getRandomTrack } from "../services/spotify.js";
+import { getGenreOfATrack, getRandomTrack } from "../services/spotify.js";
 
 //modif ca pour archi mutli games
 export async function postGuess(req, res) {
@@ -20,8 +20,15 @@ export async function postGuess(req, res) {
 }
 
 export async function testRandom(req, res) {
+  // get the tracks and infos
   const resultRandom = await getRandomTrack();
-
   console.log(resultRandom);
-  res.json(resultRandom);
+  // with the artist id check the genres
+  const randomArtistName = resultRandom.artists[0].name;
+  // console.log(randomArtistId);
+  let artistGenres = [];
+  // const artistsInfos = await getGenreOfATrack(randomArtistId);
+  console.log(getGenreOfATrack(randomArtistName));
+
+  res.json(resultRandom); 
 }

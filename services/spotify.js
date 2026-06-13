@@ -31,19 +31,21 @@ export async function getRandomTrack() {
 
   // random letter to resech as title of track ==> function of https://perryjanssen.medium.com/getting-random-tracks-using-the-spotify-api-61889b0c0c27
   // A list of all characters that can be chosen.
-  const characters = 'abcdefghijklmnopqrstuvwxyz';
-  
+  const characters = "abcdefghijklmnopqrstuvwxyz";
+
   // Gets a random character from the characters string.
-  const randomCharacter = characters.charAt(Math.floor(Math.random() * characters.length));
-  let randomSearch = '';
+  const randomCharacter = characters.charAt(
+    Math.floor(Math.random() * characters.length),
+  );
+  let randomSearch = "";
 
   // Places the wildcard character at the beginning, or both beginning and end, randomly.
   switch (Math.round(Math.random())) {
     case 0:
-      randomSearch = randomCharacter + '%';
+      randomSearch = randomCharacter + "%";
       break;
     case 1:
-      randomSearch = '%' + randomCharacter + '%';
+      randomSearch = "%" + randomCharacter + "%";
       break;
   }
   // console.log(encodeURIComponent(randomSearch));
@@ -53,7 +55,7 @@ export async function getRandomTrack() {
   // console.log(randomOffset);
   // request a tracks with the name + a random offet
   const callRandomTrack = await fetch(
-    `${baseUrl}?q=${encodeURIComponent(randomSearch)}&type=track&limit=1&offset=${randomOffset}`,
+    `${baseUrl}?q=${encodeURIComponent(randomSearch)}&type=track&limit=1&offset=${randomOffset}&market=FR`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -63,4 +65,26 @@ export async function getRandomTrack() {
   const data = await callRandomTrack.json();
   // console.log(data);
   return data.tracks.items[0];
+}
+
+export async function getGenreOfATrack(artistName) {
+  const token = await getToken();
+  const callArtistsInfos = await fetch(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=${process.env.LASTFM_API_KEY}&format=json`,
+  );
+  // console.log(callArtistsInfos);
+  const data = await callArtistsInfos.json();
+
+  if (!data.artist || !data.artist.tags || !data.artist.tags.tag) {
+    console.log("Pas de tags trouvés pour cet artiste");
+    return [];
+  }
+
+  const genres = data.artist.tags.tag;
+
+  let arrayGenre = genres.map((tag) => tag.name);
+
+  console.log(arrayGenre);
+
+  return arrayGenre;
 }
