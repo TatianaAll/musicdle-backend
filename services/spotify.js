@@ -50,7 +50,7 @@ export async function getRandomTrack() {
     },
   );
   // add a fallback return
-  if (!response.ok) {
+  if (!callRandomTrack.ok) {
     console.log("Spotify error:", response.status);
     return null;
   }
