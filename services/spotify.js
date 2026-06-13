@@ -37,32 +37,32 @@ export async function getRandomTrack() {
   const randomCharacter = characters.charAt(
     Math.floor(Math.random() * characters.length),
   );
-  let randomSearch = "";
-
-  // Places the wildcard character at the beginning, or both beginning and end, randomly.
-  switch (Math.round(Math.random())) {
-    case 0:
-      randomSearch = randomCharacter + "%";
-      break;
-    case 1:
-      randomSearch = "%" + randomCharacter + "%";
-      break;
-  }
   // console.log(encodeURIComponent(randomSearch));
 
   // random offset
-  const randomOffset = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+  const randomOffset = Math.floor(Math.random() * 50);
   // console.log(randomOffset);
   // request a tracks with the name + a random offet
   const callRandomTrack = await fetch(
-    `${baseUrl}?q=${encodeURIComponent(randomSearch)}&type=track&limit=1&offset=${randomOffset}&market=FR`,
+    `${baseUrl}?q=${encodeURIComponent(randomCharacter)}&type=track&limit=1&offset=${randomOffset}&market=FR`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
   );
+  // add a fallback return
+  if (!response.ok) {
+    console.log("Spotify error:", response.status);
+    return null;
+  }
+
   // console.log(callRandomTrack);
 
   const data = await callRandomTrack.json();
+  // sadd second fallback return
+  if (!data.tracks || data.tracks.items.length === 0) {
+    return null;
+  }
+
   // console.log(data);
   return data.tracks.items[0];
 }
