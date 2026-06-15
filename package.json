@@ -18,6 +18,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "publish": "docker build -t musicdle-backend . && docker run -p 3000:3000 musicdle-backend"
   }
 }
