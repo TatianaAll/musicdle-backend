@@ -28,6 +28,10 @@ router.post('/login', async (req, res) => {
   
   const { email, password } = req.body;
   try {
+    const user = await prisma.user.findUnique({
+       where: { email },
+        include: { roles: true }
+       });
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) return res.status(401).json({ error: 'Identifiants invalides' });
 
@@ -35,11 +39,11 @@ router.post('/login', async (req, res) => {
     if (!valid) return res.status(401).json({ error: 'Identifiants invalides' });
 
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.id, email: user.email, roles: user.roles.map(r => r.name) },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
-    res.json({ token, user: { id: user.id, email: user.email, username: user.username } });
+    res.json({ token, user: { id: user.id, email: user.email, username: user.username, roles: user.roles.map(r => r.name) } });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

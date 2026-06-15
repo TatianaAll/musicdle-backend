@@ -3,7 +3,7 @@ import prisma from "../../prismaClient.js";
 import { getRandomTrack, getGenreOfATrack } from "../spotify.js";
 
 // Define the hoir for the cron daily classic games
-cron.schedule("0 0 * * *", async () => {
+cron.schedule("19 0 * * *", async () => {
   await prisma.song.updateMany({
     where: { dailyDate: { not: null } },
     data: { dailyDate: null },

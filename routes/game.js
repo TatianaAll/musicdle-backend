@@ -9,4 +9,3 @@ router.get('/test', testRandom);
 
 
 export default router;
-// 1AT8NKdQOU0EVPu6ehN4NA
