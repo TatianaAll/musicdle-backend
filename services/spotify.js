@@ -77,14 +77,13 @@ export async function getGenreOfATrack(artistName) {
 
   if (!data.artist || !data.artist.tags || !data.artist.tags.tag) {
     console.log("Pas de tags trouvés pour cet artiste");
-    return [];
+    return "";
   }
 
   const genres = data.artist.tags.tag;
+  const stringGenre = genres.map((tag) => tag.name).join(", ");
 
-  let arrayGenre = genres.map((tag) => tag.name);
+  console.log(stringGenre);
 
-  console.log(arrayGenre);
-
-  return arrayGenre;
+  return stringGenre;
 }

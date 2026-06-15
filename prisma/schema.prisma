@@ -25,11 +25,12 @@ model Song {
   id        Int    @id @default(autoincrement())
   idSpotify String @unique
   track     String
-  artist   String
+  artist    String
   album     String
   year      String
   duration  Int
   cover     String
+  genre     String
   dailyDate DateTime?
   gameMode  GameMode?  
 
