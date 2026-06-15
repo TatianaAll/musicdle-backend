@@ -1,5 +1,6 @@
 import cron from "node-cron";
 import prisma from "../../prismaClient.js";
+import { getRandomTrack, getGenreOfATrack } from "../spotify.js";
 
 // Define the hoir for the cron daily classic games
 cron.schedule("0 0 * * *", async () => {
@@ -8,14 +9,30 @@ cron.schedule("0 0 * * *", async () => {
     data: { dailyDate: null },
   });
 
-  const count = await prisma.song.count();
-  const skip = Math.floor(Math.random() * count);
-  const song = await prisma.song.findFirst({ skip });
+  const song = await getRandomTrack();
+  if (!song) {
+    console.warn("Aucun morceau Spotify disponible pour le daily song.");
+    return;
+  }
 
-  await prisma.song.update({
-    where: { id: song.id },
-    data: { dailyDate: new Date() },
+  const artistName = song.artists?.[0]?.name ?? "Unknown";
+  const genres = await getGenreOfATrack(artistName);
+  console.log(genres);
+
+  await prisma.song.create({
+    data: {
+      idSpotify: song.id,
+      track: song.name,
+      artist: song.artists.map((a) => a.name).join(", "),
+      album: song.album.name,
+      year: song.album.release_date?.slice(0, 4) ?? "",
+      duration: Math.floor(song.duration_ms / 1000),
+      cover: song.album.images[2]?.url ?? "",
+      genre: genres,
+      dailyDate: new Date(),
+      gameMode: "classic",
+    },
   });
 
-  console.log(`Chanson du jour : ${song.track} - ${song.artist}`);
+  console.log(`Chanson du jour : ${song.name} - ${artistName}`);
 });
