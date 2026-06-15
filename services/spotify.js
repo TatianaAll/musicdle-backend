@@ -3,10 +3,10 @@ let tokenExpiry = null;
 
 async function getToken() {
   if (cachedToken && Date.now() < tokenExpiry) return cachedToken;
-  const res = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `grant_type=client_credentials&client_id=${process.env.SPOTIFY_CLIENT_ID}&client_secret=${process.env.SPOTIFY_CLIENT_SECRET}`
+  const res = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `grant_type=client_credentials&client_id=${process.env.SPOTIFY_CLIENT_ID}&client_secret=${process.env.SPOTIFY_CLIENT_SECRET}`,
   });
   const data = await res.json();
   cachedToken = data.access_token;
@@ -16,45 +16,75 @@ async function getToken() {
 
 export async function searchTracks(query) {
   const token = await getToken();
-  const res = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=6`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  const res = await fetch(
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=3`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
   return res.json();
 }
 
-async function getUserToken() {
-  const res = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64'),
+export async function getRandomTrack() {
+  const token = await getToken();
+  const baseUrl = "https://api.spotify.com/v1/search";
+
+  // random letter to resech as title of track ==> function of https://perryjanssen.medium.com/getting-random-tracks-using-the-spotify-api-61889b0c0c27
+  // A list of all characters that can be chosen.
+  const characters = "abcdefghijklmnopqrstuvwxyz";
+
+  // Gets a random character from the characters string.
+  const randomCharacter = characters.charAt(
+    Math.floor(Math.random() * characters.length),
+  );
+  // console.log(encodeURIComponent(randomSearch));
+
+  // random offset
+  const randomOffset = Math.floor(Math.random() * 50);
+  // console.log(randomOffset);
+  // request a tracks with the name + a random offet
+  const callRandomTrack = await fetch(
+    `${baseUrl}?q=${encodeURIComponent(randomCharacter)}&type=track&limit=1&offset=${randomOffset}&market=FR`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
     },
-    body: `grant_type=refresh_token&refresh_token=${process.env.SPOTIFY_REFRESH_TOKEN}`,
-  });
-  const data = await res.json();
-  return data.access_token;
+  );
+  // add a fallback return
+  if (!callRandomTrack.ok) {
+    console.log("Spotify error:", response.status);
+    return null;
+  }
+
+  // console.log(callRandomTrack);
+
+  const data = await callRandomTrack.json();
+  // sadd second fallback return
+  if (!data.tracks || data.tracks.items.length === 0) {
+    return null;
+  }
+
+  // console.log(data);
+  return data.tracks.items[0];
 }
 
-
-//top 50 FR
-export async function getTop50FR() {
-  const token = await getUserToken();
-  const res = await fetch(
-    "https://api.spotify.com/v1/playlists/37i9dQZEVXbIPWwFssbupI/items",
-    { method: "PUT",
-      headers: { Authorization: `Bearer ${token}` } }
+export async function getGenreOfATrack(artistName) {
+  const token = await getToken();
+  const callArtistsInfos = await fetch(
+    `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=${process.env.LASTFM_API_KEY}&format=json`,
   );
-  const text = await res.text();
-  console.log("getTop50FR response:", text); // ←
-  const data = JSON.parse(text);
+  // console.log(callArtistsInfos);
+  const data = await callArtistsInfos.json();
 
-  return data.items.map(({ track }) => ({
-    idSpotify: track.id,
-    track: track.name,
-    artist: track.artists[0].name,
-    album: track.album.name,
-    year: track.album.release_date.split("-")[0],
-    duration: Math.floor(track.duration_ms / 1000),
-    cover: track.album.images[0]?.url ?? "",
-  }));
+  if (!data.artist || !data.artist.tags || !data.artist.tags.tag) {
+    console.log("Pas de tags trouvés pour cet artiste");
+    return [];
+  }
+
+  const genres = data.artist.tags.tag;
+
+  let arrayGenre = genres.map((tag) => tag.name);
+
+  console.log(arrayGenre);
+
+  return arrayGenre;
 }
