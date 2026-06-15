@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
-RUN npm run prisma:migrate
 
 COPY . .
 
-EXPOSE 3000
-
 RUN npx prisma generate
+RUN npm run build
+
+EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
