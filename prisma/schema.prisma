@@ -16,6 +16,11 @@ model User {
   @@map("users")
 }
 
+enum GameMode {
+  classic
+  top50fr
+}
+
 model Song {
   id        Int    @id @default(autoincrement())
   idSpotify String @unique
@@ -25,6 +30,8 @@ model Song {
   year      String
   duration  Int
   cover     String
+  dailyDate DateTime?
+  gameMode  GameMode?  
 
   @@map("songs")
 }
