@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
@@ -7,17 +12,38 @@
     "express-rate-limit": "^8.5.2",
     "jsonwebtoken": "^9.0.3",
     "node-cron": "^4.2.1",
-    "pg": "^8.20.0"
+    "pg": "^8.20.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@prisma/client": "^5.22.0",
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^7.2.0",
     "dotenv": "^17.4.2",
+    "jest": "^30.4.2",
     "nodemon": "^3.1.14",
-    "prisma": "^5.22.0"
+    "prisma": "^5.22.0",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.11"
   },
-  "type": "module",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "node index.js"
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": ["ts-jest", {
+        "useESM": true,
+        "diagnostics": false,
+        "tsconfig": {
+          "module": "ESNext",
+          "moduleResolution": "Bundler",
+          "esModuleInterop": true,
+          "allowJs": true
+        }
+      }]
+    }
   }
 }

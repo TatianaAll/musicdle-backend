@@ -1,14 +1,14 @@
 const cache = new Map();
 const TTL = 1000 * 60 * 30; // 30 min
 
-export function setTrack(id, data) {
+function setTrack(id, data) {
   cache.set(id, {
     data,
     expires: Date.now() + TTL,
   });
 }
 
-export function getTrack(id) {
+function getTrack(id) {
   const entry = cache.get(id);
 
   if (!entry) return null;
@@ -21,6 +21,8 @@ export function getTrack(id) {
   return entry.data;
 }
 
-export function clearCache() {
+function clearCache() {
   cache.clear();
 }
+
+module.exports = { setTrack, getTrack, clearCache };

@@ -7,7 +7,7 @@ function normalize(str) {
     .trim();
 }
 
-export function compare(guess, target) {
+function compare(guess, target) {
   const yearDiff = Number(guess.year) - Number(target.year);
   const durationDiff = guess.duration - target.duration;
 
@@ -44,3 +44,5 @@ export function compare(guess, target) {
     },
   };
 }
+
+module.exports = { compare };

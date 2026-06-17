@@ -1,10 +1,9 @@
-import { getTrack } from "../services/cache/trackCache.js";
-import { getDailyTarget } from "../repositories/gameRepository.js";
-import { compare } from "../services/compareService.js";
-import { getGenreOfATrack, getRandomTrack } from "../services/spotify.js";
+const { getTrack } = require('../services/cache/trackCache.js');
+const { getDailyTarget } = require('../repositories/gameRepository.js');
+const { compare } = require('../services/compareService.js');
+const { getGenreOfATrack, getRandomTrack } = require('../services/spotify.js');
 
-//modif ca pour archi mutli games
-export async function postGuess(req, res) {
+async function postGuess(req, res) {
   const { guessId } = req.body;
 
   if (!guessId) return res.status(400).json({ error: "Guess track ID is required" });
@@ -19,16 +18,17 @@ export async function postGuess(req, res) {
   res.json(result);
 }
 
-export async function testRandom(req, res) {
-  // get the tracks and infos
+async function testRandom(req, res) {
   const resultRandom = await getRandomTrack();
   console.log(resultRandom);
-  // with the artist id check the genres
   const randomArtistName = resultRandom.artists[0].name;
-  // console.log(randomArtistId);
   let artistGenres = [];
-  // const artistsInfos = await getGenreOfATrack(randomArtistId);
   console.log(getGenreOfATrack(randomArtistName));
 
   res.json(resultRandom); 
 }
+
+module.exports = {
+  postGuess,
+  testRandom
+};
