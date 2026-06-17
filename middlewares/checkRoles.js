@@ -1,4 +1,4 @@
-export const checkRole = (...allowedRoles) => {
+const checkRole = (...allowedRoles) => {
   return (req, res, next) => {
     const hasPermission = allowedRoles.some(role => req.user.roles?.includes(role));
     if (!hasPermission) {
@@ -7,3 +7,5 @@ export const checkRole = (...allowedRoles) => {
     next();
   };
 };
+
+module.exports = { checkRole };

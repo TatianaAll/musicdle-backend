@@ -14,7 +14,7 @@ async function getToken() {
   return cachedToken;
 }
 
-export async function searchTracks(query) {
+async function searchTracks(query) {
   const token = await getToken();
   const res = await fetch(
     `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=3`,
@@ -25,54 +25,43 @@ export async function searchTracks(query) {
   return res.json();
 }
 
-export async function getRandomTrack() {
+async function getRandomTrack() {
   const token = await getToken();
   const baseUrl = "https://api.spotify.com/v1/search";
 
-  // random letter to resech as title of track ==> function of https://perryjanssen.medium.com/getting-random-tracks-using-the-spotify-api-61889b0c0c27
-  // A list of all characters that can be chosen.
   const characters = "abcdefghijklmnopqrstuvwxyz";
-
-  // Gets a random character from the characters string.
   const randomCharacter = characters.charAt(
     Math.floor(Math.random() * characters.length),
   );
-  // console.log(encodeURIComponent(randomSearch));
 
-  // random offset
   const randomOffset = Math.floor(Math.random() * 50);
-  // console.log(randomOffset);
-  // request a tracks with the name + a random offet
+
   const callRandomTrack = await fetch(
     `${baseUrl}?q=${encodeURIComponent(randomCharacter)}&type=track&limit=1&offset=${randomOffset}&market=FR`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
   );
-  // add a fallback return
+
   if (!callRandomTrack.ok) {
-    console.log("Spotify error:", response.status);
+    console.log("Spotify error:", callRandomTrack.status);
     return null;
   }
 
-  // console.log(callRandomTrack);
-
   const data = await callRandomTrack.json();
-  // sadd second fallback return
+
   if (!data.tracks || data.tracks.items.length === 0) {
     return null;
   }
 
-  // console.log(data);
   return data.tracks.items[0];
 }
 
-export async function getGenreOfATrack(artistName) {
+async function getGenreOfATrack(artistName) {
   const token = await getToken();
   const callArtistsInfos = await fetch(
     `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=${process.env.LASTFM_API_KEY}&format=json`,
   );
-  // console.log(callArtistsInfos);
   const data = await callArtistsInfos.json();
 
   if (!data.artist || !data.artist.tags || !data.artist.tags.tag) {
@@ -87,3 +76,5 @@ export async function getGenreOfATrack(artistName) {
 
   return stringGenre;
 }
+
+module.exports = { searchTracks, getRandomTrack, getGenreOfATrack };

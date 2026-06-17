@@ -1,8 +1,7 @@
-import cron from "node-cron";
-import prisma from "../../prismaClient.js";
-import { getRandomTrack, getGenreOfATrack } from "../spotify.js";
+const cron = require('node-cron');
+const prisma = require('../../prismaClient.js');
+const { getRandomTrack, getGenreOfATrack } = require('../spotify.js');
 
-// Define the hoir for the cron daily classic games
 cron.schedule("19 0 * * *", async () => {
   await prisma.song.updateMany({
     where: { dailyDate: { not: null } },

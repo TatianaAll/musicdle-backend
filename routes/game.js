@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { postGuess, testRandom } from "../controllers/gameControllers.js";
+const { Router } = require("express");
+const { postGuess, testRandom } = require("../controllers/gameControllers");
 
 const router = Router();
 
@@ -8,4 +8,4 @@ router.post("/:gameId/guess", postGuess);
 router.get('/test', testRandom);
 
 
-export default router;
+module.exports = router;

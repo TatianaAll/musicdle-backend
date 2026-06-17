@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { searchTracks } from "../services/spotify.js";
-import { setTrack } from "../services/cache/trackCache.js";
+const { Router } = require("express");
+const { searchTracks } = require("../services/spotify.js");
+const { setTrack } = require("../services/cache/trackCache.js");
 
 const router = Router();
 
@@ -38,4 +38,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
