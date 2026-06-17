@@ -10,6 +10,7 @@ import gameRoutes from "./routes/game.js";
 import "./services/cron/cronService.js";
 import { authMiddleware } from './middlewares/auth.js';
 import { checkRole } from './middlewares/checkRoles.js';
+import swaggerSetup from './swagger.js';
 dotenv.config();
 
 
@@ -22,6 +23,8 @@ app.use('/api/search', rateLimiter, searchRouter);
 app.use("/api/games", gameRoutes);
 // app.use("/api/games", authMiddleware, checkRole('USER'), gameRoutes);
 
+
+swaggerSetup(app);
 app.listen(process.env.PORT || 3005, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
