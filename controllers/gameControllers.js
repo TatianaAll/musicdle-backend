@@ -2,6 +2,7 @@ const { getTrack } = require('../services/cache/trackCache.js');
 const { getDailyTarget } = require('../repositories/gameRepository.js');
 const { compare } = require('../services/compareService.js');
 const { getGenreOfATrack, getRandomTrack } = require('../services/spotify.js');
+const prisma = require('../prismaClient.js');
 
 async function postGuess(req, res) {
   const { guessId } = req.body;
@@ -28,7 +29,22 @@ async function testRandom(req, res) {
   res.json(resultRandom); 
 }
 
+async function getDailyGenre(req, res) {
+  try {
+    const song = await prisma.song.findFirst({
+      where: { dailyDate: { not: null }, gameMode: "classic" },
+      select: { genre: true },
+    });
+
+    res.json(song);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+}
+
 module.exports = {
   postGuess,
-  testRandom
+  testRandom,
+  getDailyGenre
 };
