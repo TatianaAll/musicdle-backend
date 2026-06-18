@@ -28,19 +28,19 @@ function compare(guess, target) {
           : Math.abs(yearDiff) <= 5
             ? "close"
             : yearDiff > 0
-              ? "lower"
-              : "higher",
+              ? "tooRecent"
+              : "tooOld",
     },
     duration: {
       diff: durationDiff,
       status:
-        durationDiff == 0
+        durationDiff === 0
           ? "correct"
           : Math.abs(durationDiff) <= 30
             ? "close"
             : durationDiff > 0
-              ? "lower"
-              : "higher",
+              ? "tooLong"
+              : "tooShort",
     },
   };
 }
