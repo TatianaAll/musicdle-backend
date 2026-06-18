@@ -36,7 +36,7 @@ function compare(guess, target) {
       status:
         durationDiff == 0
           ? "correct"
-          : Math.abs(durationDiff) <= 300
+          : Math.abs(durationDiff) <= 30
             ? "close"
             : durationDiff > 0
               ? "lower"
