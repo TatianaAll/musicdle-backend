@@ -23,14 +23,10 @@ function compare(guess, target) {
     year: {
       diff: yearDiff,
       status:
-        yearDiff === 0
-          ? "correct"
-          : Math.abs(yearDiff) <= 5
-            ? "close"
-            : yearDiff > 0
-              ? "tooRecent"
-              : "tooOld",
+        yearDiff === 0 ? "correct" : Math.abs(yearDiff) <= 5 ? "close" : "far",
+      direction: yearDiff === 0 ? null : yearDiff > 0 ? "tooRecent" : "tooOld",
     },
+
     duration: {
       diff: durationDiff,
       status:
@@ -38,9 +34,9 @@ function compare(guess, target) {
           ? "correct"
           : Math.abs(durationDiff) <= 30
             ? "close"
-            : durationDiff > 0
-              ? "tooLong"
-              : "tooShort",
+            : "far",
+      direction:
+        durationDiff === 0 ? null : durationDiff > 0 ? "tooLong" : "tooShort",
     },
   };
 }
