@@ -4,8 +4,8 @@ const { getRandomTrack, getGenreOfATrack } = require('../spotify.js');
 
 cron.schedule("0 0 * * *", async () => {
   await prisma.song.updateMany({
-    where: { dailyDate: { not: null } },
-    data: { dailyDate: null },
+    where: { dailyDate: null },
+    data: { dailyDate: currentDate },
   });
 
   const song = await getRandomTrack();
@@ -28,7 +28,7 @@ cron.schedule("0 0 * * *", async () => {
       duration: Math.floor(song.duration_ms / 1000),
       cover: song.album.images[2]?.url ?? "",
       genre: genres,
-      dailyDate: new Date(),
+      dailyDate: null,
       gameMode: "classic",
     },
   });

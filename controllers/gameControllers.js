@@ -13,7 +13,9 @@ async function postGuess(req, res) {
   if (!guess) return res.status(404).json({ error: "Track not found in cache" });
 
   const target = await getDailyTarget();
-  if (!target) return res.status(404).json({ error: "Daily target not found" });
+  if (!target){
+    return res.status(404).json({ error: "Daily target not found" })
+  };
 
   const result = compare(guess, target);
   res.json(result);
