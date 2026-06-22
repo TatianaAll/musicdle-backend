@@ -34,7 +34,7 @@ async function testRandom(req, res) {
 async function getDailyGenre(req, res) {
   try {
     const song = await prisma.song.findFirst({
-      where: { dailyDate: { not: null }, gameMode: "classic" },
+      where: { dailyDate: null, gameMode: "classic" },
       select: { genre: true },
     });
 
