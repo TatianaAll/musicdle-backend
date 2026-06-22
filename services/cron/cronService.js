@@ -2,8 +2,7 @@ const cron = require('node-cron');
 const prisma = require('../../prismaClient.js');
 const { getRandomTrack, getGenreOfATrack } = require('../spotify.js');
 
-cron.schedule("0 11 * * *", async () => {
-  const currentDate = new Date;
+cron.schedule("0 0 * * *", async () => {
   await prisma.song.updateMany({
     where: { dailyDate: null },
     data: { dailyDate: currentDate },
